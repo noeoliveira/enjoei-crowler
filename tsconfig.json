@@ -1,25 +1,25 @@
 {
-    "compilerOptions": {
-        "jsx": "react",
-        "target": "ES2021",
-        "module": "CommonJS",
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "ES2021",
+    "module": "CommonJS",
+    "allowJs": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    // "rootDir": "./",
 
-        "sourceMap": true,
-        "outDir": "./dist",
-        // "rootDir": "./",
+    "strict": true,
 
-        "strict": true,
+    "moduleResolution": "node",
 
-        "moduleResolution": "node",
+    "esModuleInterop": true,
 
-        "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": ["es6", "dom"],
 
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "lib": ["es6", "dom"],
-
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
-    },
-    "exclude": ["node_modules", "coverage", "src/__tests__", "jest.*"]
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": ["node_modules", "coverage", "src/__tests__", "jest.*"]
 }
