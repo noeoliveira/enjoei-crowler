@@ -19,6 +19,13 @@ export async function monitor(page: Page, shop: string) {
 
   await saveProductBulk(shop, products);
 
+  function randomBetween(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  const timeMin = 5000;
+  const timeMax = (process.env.TIME_CHECK || 20 * 1000) as number;
+
   setInterval(async () => {
     await navigation(page, shop, { lp: "7d" });
     const newProducts = await crowlers.products.listProduct(page);
@@ -27,7 +34,7 @@ export async function monitor(page: Page, shop: string) {
     if (prod_notify.length > 0) {
       await saveProductBulk(shop, prod_notify);
     }
-  }, (process.env.TIME_CHECK || 20 * 1000) as number);
+  }, randomBetween(timeMin, timeMax));
 }
 
 async function existDocuments(shop: string, newProducts: IProduct[]) {

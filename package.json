@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node ./src/server.js",
+    "start": "pm2-runtime start ./src/server.js -i 2",
     "build": "tsc --project tsconfig.json",
     "dev": "ts-node-dev --inspect --respawn --transpile-only ./src/server.ts"
   },
@@ -13,6 +13,7 @@
     "express": "^4.17.2",
     "firebase-admin": "^10.0.1",
     "object-hash": "^2.2.0",
+    "pm2": "^5.1.2",
     "puppeteer": "^13.0.1",
     "web-push": "^3.4.5"
   },

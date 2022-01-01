@@ -9,4 +9,14 @@ services:
       - .env
     network_mode: bridge
     
+  proxy:
+    image: 'jc21/nginx-proxy-manager'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./docker/data:/data
+      - ./docker/letsencrypt:/etc/letsencrypt
 
