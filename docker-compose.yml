@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+  crowler:
+    build: .
+    image: enjoei-crowler
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    network_mode: bridge
+    
+

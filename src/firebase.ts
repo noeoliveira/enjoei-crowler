@@ -6,7 +6,9 @@ import { initializeApp, cert } from "firebase-admin/app";
 
 // Your web app's Firebase configuration
 
-const serviceAccount = require("./credentials.json");
+const serviceAccount = process.env.CREDENTIAL
+  ? JSON.parse(Buffer.from(process.env.CREDENTIAL, "base64").toString("utf8"))
+  : require("../credentials.json");
 
 initializeApp({
   credential: cert(serviceAccount),

@@ -4,9 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node server.js",
+    "start": "node ./src/server.js",
     "build": "tsc --project tsconfig.json",
-    "dev": "ts-node-dev --inspect --respawn --transpile-only server.ts"
+    "dev": "ts-node-dev --inspect --respawn --transpile-only ./src/server.ts"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
@@ -14,7 +14,6 @@
     "firebase-admin": "^10.0.1",
     "object-hash": "^2.2.0",
     "puppeteer": "^13.0.1",
-    "puppeteer-core": "^13.0.1",
     "web-push": "^3.4.5"
   },
   "devDependencies": {

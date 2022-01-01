@@ -3,7 +3,11 @@ import puppeteer from "puppeteer";
 let browser: puppeteer.Browser;
 async function init() {
   if (!browser) {
-    browser = await puppeteer.launch({ headless: false });
+    browser = await puppeteer.launch({
+      executablePath: process.env.CHROME_BIN,
+      // headless: false,
+      args: ["--no-sandbox", "--disable-dev-shm-usage"],
+    });
 
     process.on("SIGTERM", () => {
       browser.close();
