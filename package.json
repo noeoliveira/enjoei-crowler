@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "pm2-runtime start ./src/server.js -i 2",
+    "start": "pm2-runtime start ./src/server.js --name enjoei-crowler",
     "build": "rimraf dist/ && tsc --project tsconfig.json && copyfiles -u 1 src/**/*.html src/**/*.css dist/",
     "dev": "ts-node-dev --inspect --respawn --transpile-only ./src/server.ts"
   },
