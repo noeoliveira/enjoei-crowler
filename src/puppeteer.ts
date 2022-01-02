@@ -8,7 +8,7 @@ async function init() {
       puppeteerOptions: {
         executablePath: process.env.CHROME_BIN,
         // headless: true,
-        // args: ["--no-sandbox", "--disable-dev-shm-usage"],
+        args: ["--no-sandbox", "--disable-dev-shm-usage"],
       },
       concurrency: Cluster.CONCURRENCY_CONTEXT,
       maxConcurrency: 2,

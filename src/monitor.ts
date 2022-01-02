@@ -82,8 +82,6 @@ export function listener(
 async function navigation(page: Page, shop: string, filter?: { lp: string }) {
   let url = `https://www.enjoei.com.br/${shop}`;
   if (filter) {
-    console.log(puppeteer.filters(filter));
-
     url += `?${puppeteer.filters(filter)}`;
     console.log(`navigating to shop:${shop} url:${url}`);
   }
