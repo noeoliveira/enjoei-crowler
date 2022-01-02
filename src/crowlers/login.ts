@@ -1,4 +1,4 @@
-import { Page } from "puppeteer";
+import { Page } from "puppeteer-core";
 
 async function login(page: Page, email: string, password: string) {
   await page.goto("https://www.enjoei.com.br/usuario/identifique-se");

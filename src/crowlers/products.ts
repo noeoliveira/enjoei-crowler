@@ -1,4 +1,4 @@
-import { Page } from "puppeteer";
+import { Page } from "puppeteer-core";
 import { IProduct } from "../interfaces/IProduct";
 
 async function listProduct(page: Page) {

@@ -3,7 +3,7 @@ import crowlers from "./crowlers";
 
 import { getDatabase } from "firebase-admin/database";
 import { IProduct } from "./interfaces/IProduct";
-import { Page } from "puppeteer";
+import { Page } from "puppeteer-core";
 import { Cluster } from "puppeteer-cluster";
 
 const db = getDatabase();

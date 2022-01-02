@@ -1,4 +1,5 @@
 import { Cluster } from "puppeteer-cluster";
+import puppeteer from "puppeteer-core";
 
 let cluster: Cluster;
 async function init() {
@@ -11,6 +12,7 @@ async function init() {
       },
       concurrency: Cluster.CONCURRENCY_CONTEXT,
       maxConcurrency: 2,
+      puppeteer,
     });
 
     process.on("SIGTERM", () => {

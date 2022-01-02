@@ -14,8 +14,8 @@
     "firebase-admin": "^10.0.1",
     "object-hash": "^2.2.0",
     "pm2": "^5.1.2",
-    "puppeteer": "^13.0.1",
     "puppeteer-cluster": "^0.22.0",
+    "puppeteer-core": "^13.0.1",
     "web-push": "^3.4.5"
   },
   "devDependencies": {
