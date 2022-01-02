@@ -11,7 +11,7 @@ import puppeteer from "./puppeteer";
 
 async function init() {
   const cluster = await puppeteer.init();
-  monitor(cluster, "@giovanna-antonelli" || (process.env.SHOP as string));
+  monitor(cluster, process.env.SHOP as string);
   await cluster.idle();
 }
 init();
