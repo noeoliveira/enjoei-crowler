@@ -1,25 +1,29 @@
-import puppeteer from "puppeteer";
+import { Cluster } from "puppeteer-cluster";
 
-let browser: puppeteer.Browser;
+let cluster: Cluster;
 async function init() {
-  if (!browser) {
-    browser = await puppeteer.launch({
-      executablePath: process.env.CHROME_BIN,
-      // headless: false,
-      args: ["--no-sandbox", "--disable-dev-shm-usage"],
+  if (!cluster) {
+    cluster = await Cluster.launch({
+      puppeteerOptions: {
+        executablePath: process.env.CHROME_BIN,
+        // headless: true,
+        // args: ["--no-sandbox", "--disable-dev-shm-usage"],
+      },
+      concurrency: Cluster.CONCURRENCY_CONTEXT,
+      maxConcurrency: 2,
     });
 
     process.on("SIGTERM", () => {
-      browser.close();
+      cluster.close();
       process.exit();
     });
     console.log("browser initialized");
   }
-  return browser;
+  return cluster;
 }
 
 async function close() {
-  await browser.close();
+  await cluster.close();
 }
 
 interface IFilters {

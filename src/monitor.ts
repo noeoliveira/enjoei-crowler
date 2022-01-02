@@ -4,31 +4,36 @@ import crowlers from "./crowlers";
 import { getDatabase } from "firebase-admin/database";
 import { IProduct } from "./interfaces/IProduct";
 import { Page } from "puppeteer";
+import { Cluster } from "puppeteer-cluster";
 
 const db = getDatabase();
 
-export async function monitor(page: Page, shop: string) {
-  await navigation(page, shop);
+export function monitor(cluster: Cluster, shopping: string) {
+  cluster.queue({ shop: shopping }, async ({ page, data: { shop } }) => {
+    await navigation(page, shop);
 
-  console.log("find all products");
+    console.log("find all products");
 
-  const products = await existDocuments(
-    shop,
-    await crowlers.products.listProduct(page)
-  );
+    const products = await existDocuments(
+      shop,
+      await crowlers.products.listProduct(page)
+    );
 
-  await saveProductBulk(shop, products);
+    await saveProductBulk(shop, products);
+  });
 
   const time = (process.env.TIME_CHECK || 20 * 1000) as number;
 
-  setInterval(async () => {
-    await navigation(page, shop, { lp: "7d" });
-    const newProducts = await crowlers.products.listProduct(page);
-    let prod_notify: IProduct[] = await existDocuments(shop, newProducts);
+  setInterval(() => {
+    cluster.queue({ shop: shopping }, async ({ page, data: { shop } }) => {
+      await navigation(page, shop, { lp: "24h" });
+      const newProducts = await crowlers.products.listProduct(page);
+      let prod_notify: IProduct[] = await existDocuments(shop, newProducts);
 
-    if (prod_notify.length > 0) {
-      await saveProductBulk(shop, prod_notify);
-    }
+      if (prod_notify.length > 0) {
+        await saveProductBulk(shop, prod_notify);
+      }
+    });
   }, time);
 }
 

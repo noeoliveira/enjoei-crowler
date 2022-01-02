@@ -9,12 +9,10 @@ import { getDatabase } from "firebase-admin/database";
 import { listener, monitor } from "./monitor";
 import puppeteer from "./puppeteer";
 
-let browser;
-
 async function init() {
-  browser = await puppeteer.init();
-  const page = await browser.newPage();
-  monitor(page, process.env.SHOP as string);
+  const cluster = await puppeteer.init();
+  monitor(cluster, "@giovanna-antonelli" || (process.env.SHOP as string));
+  await cluster.idle();
 }
 init();
 
@@ -50,22 +48,26 @@ app.listen(app.get("port"), () => {
   console.log(`Express running`);
 });
 
-const ref = db.ref(`notifications`);
-ref.on("child_added", async (snapshot) => {
-  const subscription = snapshot.val();
+notify();
 
-  listener(process.env.SHOP as string, async (product) => {
-    const payload = JSON.stringify({
-      title: "Novo produto",
-      message: `${product.name} foi adicionado ao seu carrinho`,
-      ...product,
+function notify() {
+  const ref = db.ref(`notifications`);
+  ref.on("child_added", async (snapshot) => {
+    const subscription = snapshot.val();
+
+    listener(process.env.SHOP as string, async (product) => {
+      const payload = JSON.stringify({
+        title: "Novo produto",
+        message: `${product.name} foi adicionado ao seu carrinho`,
+        ...product,
+      });
+
+      webPush
+        .sendNotification(subscription, payload)
+        .catch((error) => console.error(error));
     });
-
-    webPush
-      .sendNotification(subscription, payload)
-      .catch((error) => console.error(error));
   });
-});
+}
 
 async function saveNotification(data: any, subscription: any) {
   const ref = db.ref(`notifications`);
