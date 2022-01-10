@@ -10,7 +10,7 @@ async function init() {
         // headless: true,
         args: ["--no-sandbox", "--disable-dev-shm-usage"],
       },
-      concurrency: Cluster.CONCURRENCY_CONTEXT,
+      concurrency: Cluster.CONCURRENCY_PAGE,
       maxConcurrency: 2,
       puppeteer,
     });
